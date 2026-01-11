@@ -334,6 +334,44 @@ body {
   margin: 0 0 18px;
   font-family: var(--font-heading);
 }
+
+/* Category Buttons */
+.category-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.category-btn {
+  padding: 12px 24px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+  border: 1px solid var(--glass-border);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition);
+}
+.category-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--glow-primary);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+}
+.category-btn.active {
+  background: linear-gradient(90deg, var(--primary-500), var(--accent-500));
+  color: #fff;
+  box-shadow: var(--glow-primary);
+  border-color: transparent;
+}
+.category-btn i {
+  font-size: 1.1rem;
+}
+
 .projects-controls {
   display: flex;
   gap: 12px;
@@ -403,12 +441,29 @@ body {
 .project-card:hover::after {
   opacity: 1;
 }
+/* Updated Project Thumbnail */
 .project-thumbnail {
   width: 100%;
-  height: 180px;
-  object-fit: cover;
+  height: 180px;           /* adjust as needed for card */
+  object-fit: contain;     /* ensures full image is visible */
+  background-color: rgba(0,0,0,0.05); /* subtle background to fill space */
   display: block;
+  border-radius: 12px 12px 0 0; /* matches card top corners */
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
+
+.project-thumbnail:hover {
+  transform: scale(1.02);
+  filter: brightness(1.05);
+}
+
+/* Optional: Responsive adjustment for smaller screens */
+@media (max-width: 640px) {
+  .project-thumbnail {
+    height: 140px;
+  }
+}
+
 .project-content {
   padding: 14px;
 }
@@ -568,8 +623,6 @@ body {
 .section-subtitle.center {
   text-align: center;
 }
-
-/* Admin blog creation panel */
 .add-blog {
   display: flex;
   flex-direction: column;
@@ -610,8 +663,6 @@ body {
   justify-content: flex-end;
   gap: 10px;
 }
-
-/* Blog list container */
 .blogs-container {
   display: flex;
   flex-direction: column;
@@ -627,8 +678,6 @@ body {
   margin-bottom: 16px;
   opacity: 0.5;
 }
-
-/* Blog card - shows title only */
 .blog-card {
   padding: 18px 20px;
   border-radius: 14px;
@@ -724,7 +773,6 @@ body {
 .blog-card:hover .read-more-hint i {
   transform: translateX(4px);
 }
-
 @keyframes heartBeat {
   0% {
     transform: scale(1);
@@ -737,7 +785,6 @@ body {
   }
 }
 
-/* Blog modal - Fully opaque background for excellent readability */
 .blog-modal-panel {
   max-width: 800px;
   max-height: 90vh; /* Added max-height */

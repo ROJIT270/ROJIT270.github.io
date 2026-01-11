@@ -1,5 +1,5 @@
 /**
- * script.js - Full client-side implementation
+ * script.js - Full client-side implementation with Category Support
  * - Theme (light/dark)
  * - Navigation + hamburger
  * - Projects (load from projects.json with fallback)
@@ -27,6 +27,7 @@ const state = {
   projects: [],
   filteredProjects: [],
   currentFilter: "all",
+  currentCategory: "all",
   blogs: [],
   currentBlogId: null,
   theme: "light",
@@ -222,6 +223,7 @@ async function initProjects() {
     state.projects = demoProjects()
   }
   state.filteredProjects = state.projects.slice()
+  renderCategoryButtons()
   renderProjects()
   renderFilterTags()
   initProjectSearch()
@@ -230,29 +232,115 @@ async function initProjects() {
 function demoProjects() {
   return [
     {
-      id: 101,
-      title: "Machine Learning Project 01",
-      description: "(Subject to Change)",
-      fullDescription: "(Subject to Change)",
-      tags: ["Data Analytics", "Machine Learning"],
+      id: 1,
+      title: "When Nepotism Destroys a Company | A Powerful Anti-Corruption Story",
+      description: "Nepotism and corruption don’t just hurt individuals, they can collapse entire organizations",
+      fullDescription: "This video exposes how favoritism, unchecked power, and corruption led to the shutdown of a company, serving as a warning for leaders and societies alike.",
+      category: "youtube",
+      tags: ["Informative Video", "Ethics on Technology"],
+      image: "resources/Youtube1.png",
+      youtube: "https://www.youtube.com/feed/history",
+      demo: "https://www.youtube.com/watch?v=ue_Yj6ww-hs",
+    },
+
+     {
+      id: 1.5,
+      title: "Professionalism at workplace",
+      description: "This video shows about people being unprofessional at workplace. Video is made for awareness for people to be professional at their workplace and show their professional behavior towards their respective staff members.",
+      fullDescription: "Professionalism plays a vital role in creating a respectful and productive workplace. This video highlights examples of unprofessional behavior at work and how such actions can affect employees, teamwork, and the overall environment.Created for awareness, the video encourages individuals to maintain professional conduct and show respect toward their colleagues and staff members, helping build a positive and healthy workplace culture.",
+      category: "youtube",
+      tags: ["Informative Video", "Professionalism in Workplace"],
+      image: "resources/Youtube2.png",
+      youtube: "https://www.youtube.com/@Professionalkids-sr6jn",
+      demo: "https://www.youtube.com/watch?v=cryQXn94l6g&t=6s",
+    },
+    
+    {
+      id: 2,
+      title: "E-Commerce Platform",
+      description: "Full-stack e-commerce application",
+      fullDescription: "A complete e-commerce platform built with React and Node.js.",
+      category: "github",
+      tags: ["React", "Node.js"],
       image:
-        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%234f46e5'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='32' text-anchor='middle' dominant-baseline='middle'%3EDemo Shop%3C/text%3E%3C/svg%3E",
-      github: "https://github.com/ROJIT270/DAML_Indv_Assignment",
-      demo: "#",
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%234f46e5'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='32' text-anchor='middle' dominant-baseline='middle'%3EGitHub%3C/text%3E%3C/svg%3E",
+      github: "https://github.com/yourusername/ecommerce",
+      demo: "https://your-demo.com",
     },
 
     {
-      id: 101,
-      title: "Machine Learning Project 01",
-      description: "(Subject to Change)",
-      fullDescription: "(Subject to Change)",
-      tags: ["Data Analytics", "Machine Learning"],
+      id: 2.2,
+      title: "Nepal Earthquake Analysis & Prediction",
+      description: "From Data Exploration to ML Forecasting",
+      fullDescription: "This project analyzes a dataset of Nepal earthquakes from 2015-2025, sourced from Kaggle, to uncover patterns in seismic activity and build predictive models. Using Pandas and Dask for efficient data loading and preprocessing, I aggregated and visualized trends like hourly quake counts, magnitude distributions, and depth-magnitude relationships. A Random Forest classifier identifies large earthquakes (magnitude ≥5.0) with high accuracy, while an LSTM neural network forecasts future magnitudes based on time-series sequences. Models were trained, evaluated, and saved for deployment, demonstrating scalable data handling and ML techniques for disaster risk insights. Built in Google Colab with scikit-learn and TensorFlow.",
+      category: "github",
+      tags: ["Jupytr_Notebook", "Python", "Data Visualization"],
+      image:"resources/Github1.png",
+      github: "https://github.com/ROJIT270/MLPC_IDV_Assignment",
+    },
+
+    {
+      id: 2.3,
+      title: "E-Commerce Platform",
+      description: "Full-stack e-commerce application",
+      fullDescription: "A complete e-commerce platform built with React and Node.js.",
+      category: "github",
+      tags: ["React", "Node.js"],
       image:
-        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%234f46e5'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='32' text-anchor='middle' dominant-baseline='middle'%3EDemo Shop%3C/text%3E%3C/svg%3E",
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%234f46e5'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='32' text-anchor='middle' dominant-baseline='middle'%3EGitHub%3C/text%3E%3C/svg%3E",
+      github: "https://github.com/yourusername/ecommerce",
+      demo: "https://your-demo.com",
+    },
+
+    {
+      id: 3,
+      title: "ML Project",
+      description: "Data analytics and ML implementation",
+      fullDescription: "A comprehensive machine learning project.",
+      category: "others",
+      tags: ["Machine Learning"],
+      image:
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%234f46e5'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='28' text-anchor='middle' dominant-baseline='middle'%3EOthers%3C/text%3E%3C/svg%3E",
       github: "https://github.com/ROJIT270/DAML_Indv_Assignment",
       demo: "#",
     },
   ]
+}
+
+function renderCategoryButtons() {
+  const container = document.getElementById("category-buttons")
+  if (!container) return
+  const categories = [
+    { id: "all", label: "All Projects", icon: "fa-th" },
+    { id: "youtube", label: "YouTube", icon: "fa-youtube" },
+    { id: "github", label: "GitHub", icon: "fa-github" },
+    { id: "others", label: "Others", icon: "fa-folder" },
+  ]
+  container.innerHTML = ""
+  categories.forEach((cat) => {
+    const btn = document.createElement("button")
+    btn.className = `category-btn ${state.currentCategory === cat.id ? "active" : ""}`
+    // choose icon family - brands for youtube/github, solid for others
+    const iconFamily = cat.icon === "fa-youtube" || cat.icon === "fa-github" ? "fab" : "fas"
+    btn.innerHTML = `<i class="${iconFamily} ${cat.icon}"></i> ${cat.label}`
+    btn.addEventListener("click", () => filterByCategory(cat.id))
+    container.appendChild(btn)
+  })
+}
+
+function filterByCategory(category) {
+  state.currentCategory = category
+  state.currentFilter = "all"
+  if (category === "all") {
+    state.filteredProjects = state.projects.slice()
+  } else {
+    state.filteredProjects = state.projects.filter((p) => p.category === category)
+  }
+  renderCategoryButtons()
+  renderProjects()
+  renderFilterTags()
+  const searchInput = document.getElementById("search-projects")
+  if (searchInput) searchInput.value = ""
 }
 
 function renderProjects() {
@@ -296,7 +384,8 @@ function renderFilterTags() {
   if (!container) return
   container.innerHTML = ""
   const set = new Set()
-  state.projects.forEach((p) => (p.tags || []).forEach((t) => set.add(t)))
+  const currentPool = state.currentCategory === "all" ? state.projects : state.projects.filter((p) => p.category === state.currentCategory)
+  currentPool.forEach((p) => (p.tags || []).forEach((t) => set.add(t)))
   set.forEach((tag) => {
     const btn = document.createElement("button")
     btn.className = "filter-tag"
@@ -311,15 +400,16 @@ function renderFilterTags() {
 
 function toggleFilter(tag, btn) {
   const buttons = document.querySelectorAll(".filter-tag")
+  const basePool = state.currentCategory === "all" ? state.projects : state.projects.filter((p) => p.category === state.currentCategory)
   if (state.currentFilter === tag) {
     state.currentFilter = "all"
     buttons.forEach((b) => b.classList.remove("active"))
-    state.filteredProjects = state.projects.slice()
+    state.filteredProjects = basePool.slice()
   } else {
     state.currentFilter = tag
     buttons.forEach((b) => b.classList.remove("active"))
     btn.classList.add("active")
-    state.filteredProjects = state.projects.filter((p) => (p.tags || []).includes(tag))
+    state.filteredProjects = basePool.filter((p) => (p.tags || []).includes(tag))
   }
   renderProjects()
 }
@@ -331,10 +421,8 @@ function initProjectSearch() {
     "input",
     debounce((e) => {
       const q = (e.target.value || "").toLowerCase().trim()
-      const pool =
-        state.currentFilter === "all"
-          ? state.projects
-          : state.projects.filter((p) => (p.tags || []).includes(state.currentFilter))
+      const basePool = state.currentCategory === "all" ? state.projects : state.projects.filter((p) => p.category === state.currentCategory)
+      const pool = state.currentFilter === "all" ? basePool : basePool.filter((p) => (p.tags || []).includes(state.currentFilter))
       state.filteredProjects = pool.filter(
         (p) =>
           (p.title || "").toLowerCase().includes(q) ||
@@ -356,6 +444,15 @@ function openProjectModal(project) {
   if (!modal || !body) return
   lastFocused = document.activeElement
 
+  let links = ""
+  if (project.category === "youtube") {
+    links = `${project.youtube ? `<a class="btn btn-primary" href="${project.youtube}" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i> View Channel</a>` : ""}${project.demo ? `<a class="btn btn-ghost" href="${project.demo}" target="_blank" rel="noopener noreferrer"><i class="fas fa-play"></i> Watch Video</a>` : ""}`
+  } else if (project.category === "github") {
+    links = `${project.github ? `<a class="btn btn-primary" href="${project.github}" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View Code</a>` : ""}${project.demo ? `<a class="btn btn-ghost" href="${project.demo}" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Live Demo</a>` : ""}`
+  } else {
+    links = `${project.github ? `<a class="btn btn-primary" href="${project.github}" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View Code</a>` : ""}${project.demo ? `<a class="btn btn-ghost" href="${project.demo}" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> View Project</a>` : ""}`
+  }
+
   body.innerHTML = `
     <div class="modal-grid">
       <img class="modal-image" src="${project.image || defaultProjectImage(project.title)}" alt="${escapeHtml(project.title)}">
@@ -363,10 +460,7 @@ function openProjectModal(project) {
         <h2 id="modal-title">${escapeHtml(project.title)}</h2>
         <p>${escapeHtml(project.fullDescription || project.description || "")}</p>
         <div class="project-tags">${(project.tags || []).map((t) => `<span class="project-tag">${escapeHtml(t)}</span>`).join("")}</div>
-        <div class="modal-links">
-          ${project.github ? `<a class="btn btn-primary" href="${project.github}" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> View Code</a>` : ""}
-          ${project.demo ? `<a class="btn btn-ghost" href="${project.demo}" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Live Demo</a>` : ""}
-        </div>
+        <div class="modal-links">${links}</div>
       </div>
     </div>
   `
@@ -384,6 +478,7 @@ function openProjectModal(project) {
 function closeProjectModal() {
   const modal = document.getElementById("project-modal")
   if (!modal) return
+  if (modal._removeTrap) modal._removeTrap()
   modal.removeAttribute("open")
   modal.setAttribute("aria-hidden", "true")
   modal.style.display = "none"
@@ -464,8 +559,6 @@ function animateSkillBars() {
 
 /* ===========================
    OffTopic Blog Section
-   - Only admin can create/edit/delete blogs
-   - Visitors can view titles, click to read full blog, and like
    =========================== */
 function initBlogs() {
   const saved = localStorage.getItem("portfolio-blogs")
@@ -751,6 +844,8 @@ function closeBlogModal() {
     body.removeEventListener("click", handleBlogModalClick)
   }
 
+  if (modal._removeTrap) modal._removeTrap()
+
   state.currentBlogId = null
   modal.removeAttribute("open")
   modal.setAttribute("aria-hidden", "true")
@@ -759,6 +854,7 @@ function closeBlogModal() {
   if (lastFocused) lastFocused.focus()
 }
 
+// close blog modal when clicking backdrop (matching project modal behavior)
 document.addEventListener("click", (e) => {
   const blogModal = document.getElementById("blog-modal")
   if (blogModal && e.target === blogModal) closeBlogModal()
