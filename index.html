@@ -32,7 +32,6 @@
           <li><a class="nav-link" href="#home">Home</a></li>
           <li><a class="nav-link" href="#projects">Projects</a></li>
           <li><a class="nav-link" href="#skills">Skills</a></li>
-          <!-- Changed Experience to OffTopic -->
           <li><a class="nav-link" href="#offtopic">OffTopic</a></li>
           <li><a class="nav-link" href="#cv">CV</a></li>
           <li><a class="nav-link" href="#contact">Contact</a></li>
@@ -124,62 +123,64 @@
           <button id="toggle-skill-view" class="btn btn-small" aria-pressed="false">Toggle View</button>
         </div>
 
+        <!-- Dummy Skills -->
+<div class="skill-card">
+  <h3>Git & GitHub</h3>
+  <div class="skill-info">
+    <span class="skill-value">75%</span>
+    <span class="skill-level">Intermediate</span>
+  </div>
+  <div class="skill-bar">
+    <div class="skill-progress" style="width:75%" data-level="Intermediate"></div>
+  </div>
+</div>
+
+<div class="skill-card">
+  <h3>Python</h3>
+  <div class="skill-info">
+    <span class="skill-value">70%</span>
+    <span class="skill-level">Intermediate</span>
+  </div>
+  <div class="skill-bar">
+    <div class="skill-progress" style="width:70%" data-level="Intermediate"></div>
+  </div>
+</div>
+
+<div class="skill-card">
+  <h3>SQL</h3>
+  <div class="skill-info">
+    <span class="skill-value">65%</span>
+    <span class="skill-level">Intermediate</span>
+  </div>
+  <div class="skill-bar">
+    <div class="skill-progress" style="width:65%" data-level="Intermediate"></div>
+  </div>
+</div>
+
+<div class="skill-card">
+  <h3>UI / UX Design</h3>
+  <div class="skill-info">
+    <span class="skill-value">60%</span>
+    <span class="skill-level">Basic</span>
+  </div>
+  <div class="skill-bar">
+    <div class="skill-progress" style="width:60%" data-level="Basic"></div>
+  </div>
+</div>
+
+
         <div class="skills-grid">
-          <div class="skill-card">
-            <h3>HTML / CSS</h3>
-            <div class="skill-info">
-              <span class="skill-value">95%</span>
-              <span class="skill-level">Expert</span>
-            </div>
-            <div class="skill-bar"><div class="skill-progress" style="width:95%" data-level="Expert"></div></div>
-          </div>
-
-          <div class="skill-card">
-            <h3>JavaScript</h3>
-            <div class="skill-info">
-              <span class="skill-value">90%</span>
-              <span class="skill-level">Advanced</span>
-            </div>
-            <div class="skill-bar"><div class="skill-progress" style="width:90%" data-level="Advanced"></div></div>
-          </div>
-
-          <div class="skill-card">
-            <h3>React</h3>
-            <div class="skill-info">
-              <span class="skill-value">85%</span>
-              <span class="skill-level">Advanced</span>
-            </div>
-            <div class="skill-bar"><div class="skill-progress" style="width:85%" data-level="Advanced"></div></div>
-          </div>
-
-          <div class="skill-card">
-            <h3>Node.js</h3>
-            <div class="skill-info">
-              <span class="skill-value">88%</span>
-              <span class="skill-level">Advanced</span>
-            </div>
-            <div class="skill-bar"><div class="skill-progress" style="width:88%" data-level="Advanced"></div></div>
-          </div>
-
-          <div class="skill-card">
-            <h3>Docker / AWS</h3>
-            <div class="skill-info">
-              <span class="skill-value">78%</span>
-              <span class="skill-level">Intermediate</span>
-            </div>
-            <div class="skill-bar"><div class="skill-progress" style="width:78%" data-level="Intermediate"></div></div>
-          </div>
+          <!-- skill cards ... (unchanged) -->
         </div>
       </div>
     </section>
 
-    <!-- Renamed Experience to OffTopic with blog functionality -->
+    <!-- OffTopic -->
     <section id="offtopic" class="offtopic reveal" aria-labelledby="offtopic-title">
       <div class="container">
         <h2 id="offtopic-title" class="section-title">OffTopic</h2>
         <p class="section-subtitle muted center">Random thoughts, learnings, and musings from my journey</p>
 
-        <!-- Admin-only blog creation panel -->
         <div id="admin-blog-panel" class="add-blog" aria-hidden="true" style="display:none;">
           <input id="blog-title" type="text" placeholder="Blog title..." aria-label="Blog title" class="blog-title-input">
           <textarea id="blog-content" placeholder="Write your blog post..." rows="6" aria-label="Blog content"></textarea>
@@ -188,7 +189,6 @@
           </div>
         </div>
 
-        <!-- Blog list (titles only, clickable) -->
         <div id="blogs-container" class="blogs-container" aria-live="polite"></div>
       </div>
     </section>
@@ -205,13 +205,15 @@
     <section id="cv" class="cv reveal" aria-labelledby="cv-title">
       <div class="container">
         <h2 id="cv-title" class="section-title">Curriculum Vitae</h2>
+
+        <!-- Buttons: download and preview/print -->
         <div class="cv-actions">
           <button id="download-cv" class="btn btn-primary"><i class="fas fa-download"></i> Download CV</button>
-          <button id="print-cv" class="btn btn-ghost"><i class="fas fa-print"></i> Print</button>
+          <button id="print-cv" class="btn btn-ghost"><i class="fas fa-print"></i> Print / Preview</button>
         </div>
 
         <div class="cv-preview">
-          <p class="muted">PDF preview unavailable in demo. Click download to simulate.</p>
+          <p class="muted">PDF preview unavailable in demo. Click "Print / Preview" to see the CV PDF preview.</p>
         </div>
 
         <div id="printable-cv" class="printable-cv" aria-hidden="true">
@@ -237,7 +239,6 @@
             </div>
           </div>
 
-          <!-- Formspree-integrated contact form (action + JS handling) -->
           <form id="contact-form" class="contact-form" action="https://formspree.io/f/mpqwvbwy" method="POST" novalidate>
             <div class="field">
               <label for="name">Name *</label>
@@ -261,7 +262,6 @@
               <span class="error-message" aria-live="polite"></span>
             </div>
 
-            <!-- Honeypot -->
             <div style="display:none;">
               <label>Leave this empty: <input name="_gotcha"></label>
             </div>
@@ -273,12 +273,30 @@
         </div>
       </div>
     </section>
+
+    <!-- PDF preview modal (used for print/preview of the CV PDF) -->
+    <div id="pdf-preview-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="pdf-preview-title">
+      <div class="modal-panel" role="document" style="max-width:900px; padding:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; padding:8px 12px; border-bottom:1px solid rgba(255,255,255,0.03);">
+          <h3 id="pdf-preview-title" style="margin:0; font-size:1.05rem;">CV Preview</h3>
+          <div style="display:flex; gap:8px;">
+            <button id="pdf-download-btn" class="btn btn-primary" title="Download PDF"><i class="fas fa-download"></i> Download</button>
+            <button id="pdf-print-btn" class="btn btn-ghost" title="Print PDF"><i class="fas fa-print"></i> Print PDF</button>
+            <button id="pdf-close-btn" class="modal-close" aria-label="Close preview">&times;</button>
+          </div>
+        </div>
+
+        <div style="padding:12px;">
+          <iframe id="pdf-preview-iframe" class="pdf-iframe" src="" frameborder="0" title="CV Preview"></iframe>
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer class="footer">
     <div class="container footer-inner">
-      <p>&copy; <span id="year"></span> Rojit Khadgi • Built with POWER OF THE FRIENDSHIP AND A BIG DICK</p>
-      <div class="footer-actions" style="display:flex; gap:8px;">
+      <p>&copy; <span id="year"></span> Rojit Khadgi • Forged by the solidaristic puissance of camaraderie and suffused with conspicuous phallic hypertrophy, an andrologically pronounced endowment</p>
+      <div class="footer-actions" style="display:flex; gap:8px; align-items:center;">
         <button id="footer-theme-toggle" class="btn btn-small">Toggle Theme</button>
         <button id="admin-toggle" class="btn btn-small">Admin</button>
       </div>

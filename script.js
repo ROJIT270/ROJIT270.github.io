@@ -8,7 +8,7 @@
  * - OffTopic Blog (admin-only creation; visitors can view and like)
  * - Admin auth (client-side, localStorage) for managing blogs
  * - Contact form: integrated with Formspree endpoint (AJAX + non-JS fallback)
- * - CV (download simulation + print)
+ * - CV (download simulation + print + PDF preview)
  * - Scroll & interaction effects (parallax, profile tilt, navbar shrink)
  * - Reveal on scroll + scroll progress
  */
@@ -255,54 +255,36 @@ function demoProjects() {
       demo: "https://www.youtube.com/watch?v=cryQXn94l6g&t=6s",
     },
     
-    {
-      id: 2,
-      title: "E-Commerce Platform",
-      description: "Full-stack e-commerce application",
-      fullDescription: "A complete e-commerce platform built with React and Node.js.",
-      category: "github",
-      tags: ["React", "Node.js"],
-      image:
-        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%234f46e5'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='32' text-anchor='middle' dominant-baseline='middle'%3EGitHub%3C/text%3E%3C/svg%3E",
-      github: "https://github.com/yourusername/ecommerce",
-      demo: "https://your-demo.com",
-    },
-
-    {
-      id: 2.2,
-      title: "Nepal Earthquake Analysis & Prediction",
-      description: "From Data Exploration to ML Forecasting",
-      fullDescription: "This project analyzes a dataset of Nepal earthquakes from 2015-2025, sourced from Kaggle, to uncover patterns in seismic activity and build predictive models. Using Pandas and Dask for efficient data loading and preprocessing, I aggregated and visualized trends like hourly quake counts, magnitude distributions, and depth-magnitude relationships. A Random Forest classifier identifies large earthquakes (magnitude ≥5.0) with high accuracy, while an LSTM neural network forecasts future magnitudes based on time-series sequences. Models were trained, evaluated, and saved for deployment, demonstrating scalable data handling and ML techniques for disaster risk insights. Built in Google Colab with scikit-learn and TensorFlow.",
-      category: "github",
-      tags: ["Jupytr_Notebook", "Python", "Data Visualization"],
-      image:"resources/Github1.png",
-      github: "https://github.com/ROJIT270/MLPC_IDV_Assignment",
-    },
-
-    {
-      id: 2.3,
-      title: "E-Commerce Platform",
-      description: "Full-stack e-commerce application",
-      fullDescription: "A complete e-commerce platform built with React and Node.js.",
-      category: "github",
-      tags: ["React", "Node.js"],
-      image:
-        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%234f46e5'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='32' text-anchor='middle' dominant-baseline='middle'%3EGitHub%3C/text%3E%3C/svg%3E",
-      github: "https://github.com/yourusername/ecommerce",
-      demo: "https://your-demo.com",
-    },
+   
+     {
+    id: 2,
+    title: "Nepal Earthquake Analysis & Prediction",
+    description: "From Data Exploration to ML Forecasting",
+    fullDescription: "This project analyzes a dataset of Nepal earthquakes from 2015-2025, sourced from Kaggle, to uncover patterns in seismic activity and build predictive models. Using Pandas and Dask for efficient data loading and preprocessing, I aggregated and visualized trends like hourly quake counts, magnitude distributions, and depth-magnitude relationships. A Random Forest classifier identifies large earthquakes (magnitude ≥5.0) with high accuracy, while an LSTM neural network forecasts future magnitudes based on time-series sequences. Models were trained, evaluated, and saved for deployment, demonstrating scalable data handling and ML techniques for disaster risk insights. Built in Google Colab with scikit-learn and TensorFlow.",
+    category: "github",
+    tags: ["Jupyter_Notebook", "Python", "Data Visualization"],
+    image: "resources/Github1.png", // <-- your full image path
+    github: "https://github.com/ROJIT270/MLPC_IDV_Assignment"
+  },
+  {
+    id: 2.2,
+    title: "Student–Teacher Ratio Analysis & Clustering",
+    description: "Analysis of Teacher to student ratio in Nepal's district level.",
+    fullDescription: "Analyzed student-teacher ratios (STR) across 76 Nepalese districts: cleaned and transformed level-wise STR data, visualized distributions and province averages, and used K-Means clustering (silhouette = 0.534) to group districts by STR profile. Deliverables: cleaned CSV, EDA plots (histogram, boxplots, heatmap, top-district bar chart), and a clustered dataset.",
+    category: "github",
+    tags: ["Jupytr_Notebook,", "Python,", "Data Visualization"],
+    image: "resources/GitHub2.png", // Example: You can add any image here
+    github: "https://github.com/ROJIT270/DAML_Indv_Assignment",
+  },
 
     {
       id: 3,
-      title: "ML Project",
-      description: "Data analytics and ML implementation",
-      fullDescription: "A comprehensive machine learning project.",
+      title: "N/A",
+      description: "N/A",
+      fullDescription: "N/A",
       category: "others",
-      tags: ["Machine Learning"],
-      image:
-        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%234f46e5'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='28' text-anchor='middle' dominant-baseline='middle'%3EOthers%3C/text%3E%3C/svg%3E",
-      github: "https://github.com/ROJIT270/DAML_Indv_Assignment",
-      demo: "#",
+      tags: ["N/A"],
+      image:"resources/Others1.png",
     },
   ]
 }
@@ -963,25 +945,128 @@ function validateField(input) {
    CV
    =========================== */
 function initCV() {
+  // path to your PDF (ensure file exists at this relative path)
+  const PDF_PATH = "resources/RojitKhadgiResume.pdf"
+
   const dlBtn = document.getElementById("download-cv")
   const printBtn = document.getElementById("print-cv")
+  const footerDlBtn = document.getElementById("footer-download-cv")
+
+  // modal elements for PDF preview (must match IDs in your HTML)
+  const pdfModal = document.getElementById("pdf-preview-modal")
+  const pdfIframe = document.getElementById("pdf-preview-iframe")
+  const pdfClose = document.getElementById("pdf-close-btn")
+  const pdfPrint = document.getElementById("pdf-print-btn")
+  const pdfDownload = document.getElementById("pdf-download-btn")
+
+  function triggerDownload(path, filename) {
+    const a = document.createElement("a")
+    a.href = path
+    a.setAttribute("download", filename || "")
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+  }
 
   if (dlBtn) {
-    dlBtn.addEventListener("click", () => {
-      alert("CV download simulated. In production, link to a real PDF.")
+    dlBtn.addEventListener("click", (e) => {
+      e.preventDefault()
+      // If you want a JS-driven download, use triggerDownload; fallback alert kept for older behavior if desired
+      triggerDownload(PDF_PATH, "RojitKhadgiResume.pdf")
+    })
+  }
+
+  if (footerDlBtn) {
+    footerDlBtn.addEventListener("click", (e) => {
+      e.preventDefault()
+      triggerDownload(PDF_PATH, "RojitKhadgiResume.pdf")
     })
   }
 
   if (printBtn) {
-    printBtn.addEventListener("click", () => {
-      const printable = document.getElementById("printable-cv")
-      if (printable) {
-        printable.style.display = "block"
-        window.print()
-        printable.style.display = "none"
+    printBtn.addEventListener("click", (e) => {
+      e.preventDefault()
+      // open PDF preview modal so user can review before printing
+      openPdfPreview(PDF_PATH)
+    })
+  }
+
+  if (pdfClose) pdfClose.addEventListener("click", closePdfPreview)
+  if (pdfDownload) pdfDownload.addEventListener("click", () => triggerDownload(PDF_PATH, "RojitKhadgiResume.pdf"))
+
+  if (pdfPrint) {
+    pdfPrint.addEventListener("click", () => {
+      try {
+        // attempt to print the embedded PDF (works for same-origin)
+        if (pdfIframe && pdfIframe.contentWindow) {
+          pdfIframe.contentWindow.focus()
+          pdfIframe.contentWindow.print()
+        } else {
+          // fallback: open in new tab
+          window.open(PDF_PATH, "_blank")
+        }
+      } catch (err) {
+        // cross-origin or blocked — open in new tab
+        window.open(PDF_PATH, "_blank")
       }
     })
   }
+
+  // close modal when clicking backdrop
+  document.addEventListener("click", (e) => {
+    if (!pdfModal) return
+    if (e.target === pdfModal) closePdfPreview()
+  })
+
+  // also close on escape (keeps parity with other modals)
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      if (pdfModal && pdfModal.getAttribute("aria-hidden") === "false") closePdfPreview()
+    }
+  })
+}
+
+// Opens a PDF preview modal with the given path (uses existing modal in DOM)
+function openPdfPreview(path) {
+  const modal = document.getElementById("pdf-preview-modal")
+  const iframe = document.getElementById("pdf-preview-iframe")
+  if (!modal || !iframe) {
+    // fallback: open PDF in new tab if modal is missing
+    window.open(path, "_blank")
+    return
+  }
+
+  // set iframe src (optionally add cache bust param if needed)
+  iframe.src = path
+
+  modal.setAttribute("aria-hidden", "false")
+  modal.style.display = "flex"
+  setTimeout(() => modal.setAttribute("open", ""), 20)
+  document.body.style.overflow = "hidden"
+
+  // trap focus inside modal (re-uses trapFocus)
+  trapFocus(modal)
+
+  // focus print button for accessibility
+  const printBtn = document.getElementById("pdf-print-btn")
+  if (printBtn) printBtn.focus()
+}
+
+function closePdfPreview() {
+  const modal = document.getElementById("pdf-preview-modal")
+  const iframe = document.getElementById("pdf-preview-iframe")
+  if (!modal) return
+  if (iframe) {
+    // clear src to stop PDF activity / free memory
+    iframe.src = ""
+  }
+
+  if (modal._removeTrap) modal._removeTrap()
+
+  modal.removeAttribute("open")
+  modal.setAttribute("aria-hidden", "true")
+  modal.style.display = "none"
+  document.body.style.overflow = ""
 }
 
 /* ===========================
