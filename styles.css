@@ -901,10 +901,83 @@ body {
   transition: all var(--transition);
 }
 
-:root[data-theme="light"] .blog-modal-like button {
-  background: rgba(79, 70, 229, 0.08);
-  color: #374151;
+/* ================================
+   Light-theme fixes for Project Modal
+   Put this at the end of styles.css
+   Ensures modal text + tags are readable in data-theme="light"
+   ================================ */
+
+:root[data-theme="light"] .modal-panel {
+  background: var(--card);                 /* white */
+  color: var(--text);                      /* dark text */
+  border: 1px solid rgba(0, 0, 0, 0.06);   /* subtle border */
+  box-shadow: 0 30px 80px rgba(2, 6, 23, 0.06);
 }
+
+/* Ensure the modal inner content inherits readable color */
+:root[data-theme="light"] #modal-body,
+:root[data-theme="light"] .modal-grid,
+:root[data-theme="light"] .modal-content-inner,
+:root[data-theme="light"] .modal-content-inner p,
+:root[data-theme="light"] #modal-title {
+  color: var(--text);
+}
+
+/* Modal title visible and slightly darker */
+:root[data-theme="light"] #modal-title {
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* Make paragraphs (description) clearly readable */
+:root[data-theme="light"] #modal-body p {
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 0.9rem;
+}
+
+/* Tags/buttons inside modal: use contrasting styles for light theme */
+:root[data-theme="light"] .modal-links .btn {
+  color: #fff; /* primary buttons keep white text */
+}
+:root[data-theme="light"] .modal-links .btn.btn-ghost {
+  color: var(--primary-600);
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Ensure modal image area looks good on white */
+:root[data-theme="light"] .modal-image {
+  background: #f8fafc;
+  border-radius: 10px;
+  object-fit: contain;
+  filter: none;
+}
+
+/* Improve contrast for project tags inside modal */
+:root[data-theme="light"] .modal-content-inner .project-tag {
+  background: rgba(79,70,229,0.06);
+  color: var(--primary-600);
+  border: 1px solid rgba(79,70,229,0.08);
+}
+
+/* If you have a modal grid layout (image + content side-by-side),
+   ensure spacing and readable background */
+.modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .modal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Safety: when the modal overlay is dark, keep it — no change needed,
+   but if you ever invert overlay ensure modal-panel remains readable. */
+
 
 .blog-modal-like button:hover {
   background: rgba(79, 70, 229, 0.2);
@@ -1203,3 +1276,40 @@ body {
 }
 
 
+/* === PDF preview modal styles === */
+.pdf-iframe {
+  width: 100%;
+  height: 70vh;
+  border: 0;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+}
+
+/* Slightly tighten modal-panel for PDF preview so iframe fills nicely */
+#pdf-preview-modal .modal-panel {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Ensure modal-close button in preview is visible (overrides) */
+#pdf-preview-modal .modal-close {
+  font-size: 22px;
+  padding: 6px 10px;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+}
+
+/* Make footer download button look good on small screens */
+.footer .btn-small.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* small responsive tweak */
+@media (max-width: 640px) {
+  .pdf-iframe { height: 60vh; }
+  #pdf-preview-modal .modal-panel { width: 96%; max-width: 96%; }
+}
