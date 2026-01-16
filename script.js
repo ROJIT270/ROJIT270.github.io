@@ -266,6 +266,7 @@ function demoProjects() {
     image: "resources/Github1.png", // <-- your full image path
     github: "https://github.com/ROJIT270/MLPC_IDV_Assignment"
   },
+
   {
     id: 2.2,
     title: "Student–Teacher Ratio Analysis & Clustering",
@@ -275,6 +276,28 @@ function demoProjects() {
     tags: ["Jupytr_Notebook,", "Python,", "Data Visualization"],
     image: "resources/GitHub2.png", // Example: You can add any image here
     github: "https://github.com/ROJIT270/DAML_Indv_Assignment",
+  },
+
+  {
+    id: 2.3,
+    title: "Banking System GUI / Bank Management System",
+    description: "A simple demo of typical banking system with basic features. ",
+    fullDescription: "A Java desktop application that consist graphical user interface for the purpose of simulating basic banking operations. Supports features like account creation, deposits, withdrawals, balance checks, and transactions built using Swing (or similar) for the GUI as a college project.",
+    category: "github",
+    tags: ["Java"],
+    image: "resources/GitHub5.png", // Example: You can add any image here
+    github: "https://github.com/ROJIT270/BankingSystem_Demo",
+  },
+
+  {
+    id: 2.4,
+    title: "Student Registration System",
+    description: "A simple application demo for students to keep track and control courses they have enrolled in..",
+    fullDescription: "A desktop application based on java for managing student registration andrecords. Features include adding, updating, viewing, and deleting student information with a simple user interface (likely using Swing/JavaFX) and data persistence.",
+    category: "github",
+    tags: ["Java"],
+    image: "resources/GitHub4.png", // Example: You can add any image here
+    github: "https://github.com/ROJIT270/Student_Course_Registration_System",
   },
 
     {
