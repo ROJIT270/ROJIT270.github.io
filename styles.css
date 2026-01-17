@@ -490,6 +490,20 @@ body {
   font-size: 12px;
 }
 
+/* Add spacing between project tags and the action links inside project modal.
+   This only adds spacing and uses flex gap for the buttons so they don't touch tags. */
+.modal-content-inner .project-tags {
+  margin-bottom: 12px; /* space below tags before the action links */
+}
+
+.modal-content-inner .modal-links {
+  display: flex;
+  gap: 12px;       /* horizontal gap between buttons (github / youtube / demo) */
+  margin-top: 12px;/* small extra insurance in case layout places links above tags */
+  flex-wrap: wrap; /* allow wrapping on narrow screens */
+  align-items: center;
+}
+
 /* Modal - General */
 .modal {
   position: fixed;
