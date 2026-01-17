@@ -1327,3 +1327,9 @@ body {
   .pdf-iframe { height: 60vh; }
   #pdf-preview-modal .modal-panel { width: 96%; max-width: 96%; }
 }
+
+/* Fix: remove top gap so sticky navbar sits flush to the viewport.
+   Insert this at the end of styles.css (after existing rules). */
+.navbar {
+  top: 0;
+}
